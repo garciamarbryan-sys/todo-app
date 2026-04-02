@@ -10,25 +10,25 @@ button.addEventListener("click", () => {
     return;
   }
 
-  // Crear elemento li
   const li = document.createElement("li");
   li.innerText = text;
 
-  // Crear botón eliminar
+  // ✅ MARCAR COMO COMPLETADA
+  li.addEventListener("click", () => {
+    li.classList.toggle("completed");
+  });
+
+  // ❌ BOTÓN ELIMINAR
   const deleteBtn = document.createElement("button");
   deleteBtn.innerText = "❌";
 
-  // Evento eliminar
-  deleteBtn.addEventListener("click", () => {
+  deleteBtn.addEventListener("click", (e) => {
+    e.stopPropagation(); // evita conflicto con click del li
     list.removeChild(li);
   });
 
-  // Agregar botón al li
   li.appendChild(deleteBtn);
-
-  // Agregar a lista
   list.appendChild(li);
 
-  // Limpiar input
   input.value = "";
 });

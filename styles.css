@@ -23,3 +23,7 @@ li {
   margin: 10px;
   font-size: 18px;
 }
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
