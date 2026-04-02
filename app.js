@@ -1,12 +1,14 @@
 const input = document.getElementById("taskInput");
 const button = document.getElementById("addBtn");
 const list = document.getElementById("taskList");
+const counter = document.getElementById("taskCounter");
 
 // 📦 Obtener tareas
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 // 🔁 Render inicial
 renderAll();
+updateCounter();
 
 // ➕ Agregar tarea
 button.addEventListener("click", () => {
@@ -18,7 +20,7 @@ button.addEventListener("click", () => {
   }
 
   const task = {
-    id: Date.now(), // 🔥 evita errores por texto repetido
+    id: Date.now(),
     text: text,
     completed: false
   };
@@ -26,6 +28,7 @@ button.addEventListener("click", () => {
   tasks.push(task);
   saveTasks();
   renderAll();
+  updateCounter();
 
   input.value = "";
 });
@@ -35,7 +38,7 @@ function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-// 🔁 Renderizar TODAS
+// 🔁 Renderizar
 function renderAll(filtered = tasks) {
   list.innerHTML = "";
 
@@ -47,11 +50,12 @@ function renderAll(filtered = tasks) {
       li.classList.add("completed");
     }
 
-    // ✅ Toggle completar
+    // ✔ Completar
     li.addEventListener("click", () => {
       task.completed = !task.completed;
       saveTasks();
       renderAll();
+      updateCounter();
     });
 
     // ❌ Eliminar
@@ -64,6 +68,7 @@ function renderAll(filtered = tasks) {
       tasks = tasks.filter(t => t.id !== task.id);
       saveTasks();
       renderAll();
+      updateCounter();
     });
 
     li.appendChild(deleteBtn);
@@ -71,7 +76,7 @@ function renderAll(filtered = tasks) {
   });
 }
 
-// 🔍 FILTROS
+// 🔍 Filtros
 function filterTasks(type) {
   if (type === "all") {
     renderAll(tasks);
@@ -84,4 +89,10 @@ function filterTasks(type) {
   if (type === "pending") {
     renderAll(tasks.filter(t => !t.completed));
   }
+}
+
+// 🔢 Contador (INNOVACIÓN)
+function updateCounter() {
+  const pending = tasks.filter(t => !t.completed).length;
+  counter.innerText = `${pending} tareas pendientes`;
 }
