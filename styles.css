@@ -11,6 +11,7 @@ input {
 
 button {
   padding: 6px 10px;
+  margin: 5px;
   cursor: pointer;
 }
 
@@ -23,6 +24,7 @@ li {
   margin: 10px;
   font-size: 18px;
 }
+
 .completed {
   text-decoration: line-through;
   color: gray;

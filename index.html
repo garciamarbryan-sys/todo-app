@@ -12,6 +12,13 @@
   <input type="text" id="taskInput" placeholder="Escribe una tarea">
   <button id="addBtn">Agregar</button>
 
+  <!-- FILTROS -->
+  <div>
+    <button onclick="filterTasks('all')">Todas</button>
+    <button onclick="filterTasks('completed')">Completadas</button>
+    <button onclick="filterTasks('pending')">Pendientes</button>
+  </div>
+
   <ul id="taskList"></ul>
 
   <script src="app.js"></script>
